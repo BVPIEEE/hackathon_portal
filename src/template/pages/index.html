@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block content %}
+<section class="hero__content">
+            <div class="hero__text">
+                <p class="hero__subtitle">On-Demand Video Production</p>
+                <h1>Style and form that's Unmatched by All</h1>
+                <div class="play__section">
+                    <div id="play" class="play__button">
+                        <img src="{% static 'images/play.svg' %}" alt="play button">
+                    </div>
+                    <p>Watch Why We're Better</p>
+                </div>
+            </div>
+            <div class="hero__video">
+                <img src="{% static 'images/car.jpg' %}" alt="video">
+            </div>
+
+        </section>
+</div>
+{% endblock %}

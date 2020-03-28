@@ -1,0 +1,31 @@
+{% load static%}
+<div class="hero">
+        <header>
+            <img src="{% static 'images/logo.svg' %}" alt="logo">
+            <nav>
+                <ul class="nav__links">
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Project</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+            <a href="#"><button class="med__button">Contact</button></a>
+            <div class="mobile__menu">
+                 <input id="toggle" type='checkbox'/>
+                 <label class="hamburger"  for="toggle">
+                     <div class="hamburger__top"></div>
+                     <div class="hamburger__meat"></div>
+                     <div class="hamburger__bottom"></div>
+                 </label>
+
+                 <div class="hamburger__nav">
+                     <div class='hamburger__nav__wrapper'>
+                         <nav class="hamburger__nav__items">
+                             <a href="#">Services</a>
+                             <a href="#">projects</a>
+                             <a href="#">About</a>
+                         </nav>
+                     </div>
+                 </div>
+            </div>
+        </header>
