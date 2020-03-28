@@ -1,21 +1,98 @@
 {% extends 'base.html' %}
 {% load static%}
 {% block content %}
-<section class="hero__content">
-            <div class="hero__text">
-                <p class="hero__subtitle">On-Demand Video Production</p>
-                <h1>Style and form that's Unmatched by All</h1>
-                <div class="play__section">
-                    <div id="play" class="play__button">
-                        <img src="{% static 'images/play.svg' %}" alt="play button">
-                    </div>
-                    <p>Watch Why We're Better</p>
-                </div>
-            </div>
-            <div class="hero__video">
-                <img src="{% static 'images/car.jpg' %}" alt="video">
-            </div>
-
-        </section>
-</div>
+<div class="container grid grid-hero-thirds">
+    <div class="grid-hero">
+      <div class="hero chart-wrapper">
+        <div class="chart-title">
+          Youtube Live Stream
+        </div>
+        <div class="chart-stage">
+          <div id="grid-1-1">
+            <iframe width="720" height="315" src="https://www.youtube.com/embed/2xiCVNwhrDU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="chart-notes">
+          Notes about this chart
+        </div>
+      </div>
+      <div class="chart-wrapper">
+        <div class="chart-title">
+          Cell Title
+        </div>
+        <div class="chart-stage">
+          <img data-src="holder.js/100px240?theme=white">
+        </div>
+        <div class="chart-notes">
+          Notes about this chart
+        </div>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="chart-title">
+        Cell Title
+      </div>
+      <div class="chart-stage">
+        <img data-src="holder.js/100px120?theme=white">
+      </div>
+      <div class="chart-notes">
+        Notes about this chart
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="chart-title">
+        Cell Title
+      </div>
+      <div class="chart-stage">
+        <img data-src="holder.js/100px120?theme=white">
+      </div>
+      <div class="chart-notes">
+        Notes about this chart
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="chart-title">
+        Cell Title
+      </div>
+      <div class="chart-stage">
+        <img data-src="holder.js/100px120?theme=white">
+      </div>
+      <div class="chart-notes">
+        Notes about this chart
+      </div>
+    </div>
+    <div class="chart-wrapper" id="1">
+      <div class="chart-title">
+        Cell Title
+      </div>
+      <div class="chart-stage">
+        <img data-src="holder.js/100px120?theme=white">
+      </div>
+      <div class="chart-notes">
+        Notes about this chart
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="chart-title">
+        Cell Title
+      </div>
+      <div class="chart-stage">
+        <img data-src="holder.js/100px120?theme=white">
+      </div>
+      <div class="chart-notes">
+        Notes about this chart
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="chart-title">
+        Cell Title
+      </div>
+      <div class="chart-stage">
+        <img data-src="holder.js/100px120?theme=white">
+      </div>
+      <div class="chart-notes">
+        Notes about this chart
+      </div>
+    </div>
+  </div>
 {% endblock %}
