@@ -10,8 +10,17 @@
       </div>
       <div class="navbar-collapse">
         <ul class="navbar-nav nav main-nav">
-          <li><a href="https://keen.io">Home</a></li>
-          <li><a href="https://keen.io/team">Team</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="javascript:{document.getElementById('logout').submit()}" ><strong>Logout</strong></a></li>
+			  <form action="{% url 'logout' %}" id ='logout' method="POST">
+			    	{% csrf_token %}
+				    <input type="hidden">
+			</form>
+			{% else %}
+				<li><a id="login1" href="{% url 'social:begin' 'github' %}">
+                  <strong>Github Login</strong>
+			{% endif %}
+          <li><a href="https://wiehack.bvpieeend.com">Website</a></li>
           <li><a href="https://github.com/keenlabs/dashboards/tree/gh-pages/layouts/hero-sidebar">Source</a>
           </li>
           <li><a href="https://groups.google.com/forum/#!forum/keen-io-devs">Community</a></li>

@@ -27,7 +27,7 @@ SECRET_KEY = values["secret_key"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 # Application definition
 
@@ -137,4 +137,7 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
+SOCIAL_AUTH_GITHUB_KEY = values["github_id"]
+SOCIAL_AUTH_GITHUB_SECRET = values["github_secret"]
 
+LOGIN_REDIRECT_URL = 'home'
