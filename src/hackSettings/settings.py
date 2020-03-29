@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pages',
     'social_django',
+    'accounts',
+    'complexModules'
 ]
 
 MIDDLEWARE = [
