@@ -143,3 +143,11 @@ SOCIAL_AUTH_GITHUB_KEY = values["github_id"]
 SOCIAL_AUTH_GITHUB_SECRET = values["github_secret"]
 
 LOGIN_REDIRECT_URL = 'home'
+
+
+# Messages
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.INFO: 'danger',
+}
