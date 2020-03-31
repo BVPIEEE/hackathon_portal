@@ -5,7 +5,8 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from accounts.models import team, phaseSelectionModel, manageTeam
-
+from complexModules.models import scoringModel
+from .forms import scoringForm
 # Create your views here.
 from hackSettings.settings import BASE_DIR
 
@@ -24,7 +25,74 @@ def scoring_dashboard(request):
     except ObjectDoesNotExist:
         messages.warning(request, "you are not authorised to access this")
         return redirect("home")
-    return render(request, 'pages/scoring.html')
+
+    obj = scoringModel.objects.get(scoringNumber=1)
+    form = scoringForm(obj)
+    return render(request, 'pages/scoring1.html', {'form': form.data})
+
+
+def scoring_dashboard2(request):
+    if request.user.is_anonymous:
+        messages.warning(request, "Login first for Guest/Mentor")
+        return redirect("home")
+
+    try:
+        authority = manageTeam.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        messages.warning(request, "you are not authorised to access this")
+        return redirect("home")
+
+    obj = scoringModel.objects.get(scoringNumber=2)
+    form = scoringForm(obj)
+    return render(request, 'pages/scoring2.html', {'form': form.data})
+
+
+def scoring_dashboard3(request):
+    if request.user.is_anonymous:
+        messages.warning(request, "Login first for Guest/Mentor")
+        return redirect("home")
+
+    try:
+        authority = manageTeam.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        messages.warning(request, "you are not authorised to access this")
+        return redirect("home")
+
+    obj = scoringModel.objects.get(scoringNumber=3)
+    form = scoringForm(obj)
+    return render(request, 'pages/scoring3.html', {'form': form.data})
+
+
+def scoring_dashboard4(request):
+    if request.user.is_anonymous:
+        messages.warning(request, "Login first for Guest/Mentor")
+        return redirect("home")
+
+    try:
+        authority = manageTeam.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        messages.warning(request, "you are not authorised to access this")
+        return redirect("home")
+
+    obj = scoringModel.objects.get(scoringNumber=4)
+    form = scoringForm(obj)
+    return render(request, 'pages/scoring4.html', {'form': form.data})
+
+
+def scoring_dashboardFinal(request):
+    if request.user.is_anonymous:
+        messages.warning(request, "Login first for Guest/Mentor")
+        return redirect("home")
+
+    try:
+        authority = manageTeam.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        messages.warning(request, "you are not authorised to access this")
+        return redirect("home")
+
+    obj = scoringModel.objects.get(scoringNumber=5)
+    form = scoringForm(obj)
+    return render(request, 'pages/scoringFinal.html', {'form': form.data})
 
 
 def participant_dashboard(request):

@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block content %}
+  <div class="container grid grid-split-columns">
+    <div class="grid-split">
+
+      <div class="chart-wrapper">
+                 <div>
+            <button>
+                next
+            </button>
+        </div>
+        <div class="chart-title">
+          Abstract
+        </div>
+        <div class="chart-stage6">
+            <p id="abstract" style="height: 200px; margin:10px;"></p>
+        </div>
+
+        <div class="chart-notes">Abstract - Notes about this chart</div>
+
+        <div class="chart-wrapper">
+        <div class="chart-title">PDF</div>
+        <div class="chart-stage">
+            <iframe src="" HEIGHT="500px"  width="100%" id = "pdf_a"></iframe>
+        </div>
+        <div class="chart-notes">
+          PDF - Notes about this chart
+        </div>
+      </div>
+
+        <div class="chart-wrapper">
+            <div class="chart-title">
+              B Plan
+            </div>
+            <div class="chart-stage">
+                <iframe src="" HEIGHT="400px"  width="100%" id = "pdf_b"></iframe>
+            </div>
+            <div class="chart-notes">
+              B Plan - Notes about this chart
+            </div>
+        </div>
+      </div>
+
+
+      <div class="chart-wrapper" style="min-height: 100%;" >
+        <div class="chart-title">
+          Form for grading
+        </div>
+        <div class="chart-stage" style="height:80%;">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf2WgDt0bVF2iNhqdm4V47N088ncVTXQ3XOQ7SuLsPYyZ2xgQ/viewform?embedded=true" HEIGHT="100%"  width="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+      </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="no_one">
+        <p>Google Sheets API Quickstart</p>
+        <!--Add buttons to initiate auth sequence and sign out-->
+        <button id="authorize_button" style="display: none;">Authorize</button>
+        <button id="signout_button" style="display: none;">Sign Out</button>
+
+        <pre id="content" style="white-space: pre-wrap;"></pre>
+
+
+        <script type="text/javascript" src="{% static '/js/read_google_sheet.js' %}"></script>
+        <script>
+            // Client ID and API key from the Developer Console
+            var CLIENT_ID = "{{ form.client }}";
+            var API_KEY = "{{ form.api_key }}";
+
+            // Array of API discovery doc URLs for APIs used by the quickstart
+            var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+
+            // Authorization scopes required by the API; multiple scopes can be
+            // included, separated by spaces.
+            var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
+
+            var authorizeButton = document.getElementById('authorize_button');
+            var signoutButton = document.getElementById('signout_button');
+
+            /**
+             *  On load, called to load the auth2 library and API client library.
+             */
+            function handleClientLoad() {
+              gapi.load('client:auth2', initClient);
+            }
+
+            /**
+             *  Initializes the API client library and sets up sign-in state
+             *  listeners.
+             */
+            function initClient() {
+              gapi.client.init({
+                apiKey: API_KEY,
+                clientId: CLIENT_ID,
+                discoveryDocs: DISCOVERY_DOCS,
+                scope: SCOPES
+              }).then(function () {
+                // Listen for sign-in state changes.
+                gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+                // Handle the initial sign-in state.
+                updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+                authorizeButton.onclick = handleAuthClick;
+                signoutButton.onclick = handleSignoutClick;
+              }, function(error) {
+                appendPre(JSON.stringify(error, null, 2));
+              });
+            }
+
+            /**
+             *  Called when the signed in status changes, to update the UI
+             *  appropriately. After a sign-in, the API is called.
+             */
+            function updateSigninStatus(isSignedIn) {
+              if (isSignedIn) {
+                authorizeButton.style.display = 'none';
+                signoutButton.style.display = 'block';
+                listMajors();
+              } else {
+                authorizeButton.style.display = 'block';
+                signoutButton.style.display = 'none';
+              }
+            }
+
+            /**
+             *  Sign in the user upon button click.
+             */
+            function handleAuthClick(event) {
+              gapi.auth2.getAuthInstance().signIn();
+            }
+
+            /**
+             *  Sign out the user upon button click.
+             */
+            function handleSignoutClick(event) {
+              gapi.auth2.getAuthInstance().signOut();
+            }
+
+            /**
+             * Append a pre element to the body containing the given message
+             * as its text node. Used to display the results of the API call.
+             *
+             * @param {string} message Text to be placed in pre element.
+             */
+            function appendPre(message) {
+              var pre = document.getElementById('content');
+              var textContent = document.createTextNode(message + '\n');
+              pre.appendChild(textContent);
+            }
+
+            /**
+             * Print the names and majors of students in a sample spreadsheet:
+             * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+             */
+            function listMajors() {
+              gapi.client.sheets.spreadsheets.values.get({
+                //spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
+                spreadsheetId: '17oEla0O_QZrRBGq7sR4f6Q10nBW9vllGhMIBK2i0Vhw',
+                range: 'Form Responses 1!A2:E',
+              }).then(function(response) {
+                var range = response.result;
+                if (range.values.length > 0) {
+                  appendPre('Time stamp,          Pdf link:');
+                  for (i = 0; i < range.values.length; i++) {
+                    var row = range.values[i];
+                    // Print columns A and E, which correspond to indices 0 and 4.
+                    appendPre(row[0] + ',   ' + row[1]);
+                    var s = 'https://drive.google.com/file/d/';
+                    row[1] = row[1].replace('https://drive.google.com/open?id=',s);
+                    row[1] = row[1].concat('/preview');
+                    document.getElementById('pdf_a').src= row[1];
+                    document.getElementById('abstract').innerHTML= row[0];
+                    appendPre(row[0] + ',   ' + row[1]);
+                  }
+                } else {
+                  appendPre('No data found.');
+                }
+              }, function(response) {
+                appendPre('Error: ' + response.result.error.message);
+              });
+            }
+        </script>
+        <script async defer src="https://apis.google.com/js/api.js"
+          onload="this.onload=function(){};handleClientLoad()"
+          onreadystatechange="if (this.readyState === 'complete') this.onload()">
+        </script>
+    </div>
+  <!-- Project Analytics
+  <script type="text/javascript" src="../../assets/js/keen-analytics.js"></script>
+  -->
+  <script>
+    function toggleMenu() {
+      const toggleBtn = document.querySelector('.navbar-toggle');
+
+      toggleBtn.addEventListener('click', (e) => {
+        let menu;
+        if (e.currentTarget.dataset.target) {
+          menu = document.querySelector(e.currentTarget.dataset.target);
+        }
+        if (menu) menu.classList.toggle('collapsed');
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', toggleMenu);
+  </script>
+{% endblock %}
