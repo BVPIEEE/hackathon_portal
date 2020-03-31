@@ -15,6 +15,10 @@ def index(request):
 
 
 def scoring_dashboard(request):
+    if request.user.is_anonymous:
+        messages.warning(request, "Login first for Guest/Mentor")
+        return redirect("home")
+
     try:
         authority = manageTeam.objects.get(user=request.user)
     except ObjectDoesNotExist:
