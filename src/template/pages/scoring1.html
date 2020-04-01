@@ -175,7 +175,7 @@
                     row[1] = row[1].concat('/preview');
                     document.getElementById('pdf_a').src= row[1];
                     document.getElementById('abstract').innerHTML= row[0];
-                    appendPre(row[0] + ',   ' + row[1]);
+                    appendPre(row[0] + ',   ' + row[1] + ',   ' + row[9]);
                   }
                 } else {
                   appendPre('No data found.');
@@ -183,7 +183,7 @@
               }, function(response) {
                 appendPre('Error: ' + response.result.error.message);
               });
-            }
+         }
         </script>
         <script async defer src="https://apis.google.com/js/api.js"
           onload="this.onload=function(){};handleClientLoad()"
