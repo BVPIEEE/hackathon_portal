@@ -13,6 +13,8 @@ import json
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import dj_database_url
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -22,12 +24,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 configuration = open(os.path.join(BASE_DIR, 'Config.txt'))
 values = json.loads(configuration.read())
 
-SECRET_KEY = values["secret_key"]
+SECRET_KEY = os.environ.get("SECRET_KEY")
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'wiehackportal.herokuapp.com']
 
 # Application definition
 
@@ -41,7 +45,8 @@ INSTALLED_APPS = [
     'pages',
     'social_django',
     'accounts',
-    'complexModules'
+    'complexModules',
+    'whitenoise.runserver_nostatic'
 ]
 
 MIDDLEWARE = [
@@ -53,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'hackSettings.urls'
@@ -86,6 +92,9 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # social authentication
 AUTHENTICATION_BACKENDS = (
@@ -129,6 +138,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+# location where django collect all static files
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
@@ -139,11 +149,10 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
-SOCIAL_AUTH_GITHUB_KEY = values["github_id"]
-SOCIAL_AUTH_GITHUB_SECRET = values["github_secret"]
+SOCIAL_AUTH_GITHUB_KEY = os.environ.get("GITHUB_KEY")
+SOCIAL_AUTH_GITHUB_SECRET = os.environ.get("GITHUB_SECRET")
 
 LOGIN_REDIRECT_URL = 'home'
-
 
 # Messages
 from django.contrib.messages import constants as messages
@@ -151,3 +160,5 @@ from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.INFO: 'danger',
 }
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
