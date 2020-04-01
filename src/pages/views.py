@@ -99,13 +99,21 @@ def participant_dashboard(request):
     if request.user.is_anonymous:
         messages.warning(request, "Login using Github first")
         return redirect("home")
-
-    with open("participants.csv", 'r') as file:
-        reader = file.read()
-        if request.user.username in reader:
-            return render(request, 'pages/dashboard.html')
-        messages.warning(request, "You are not a participant")
-        return redirect("home")
+    try:
+        team.objects.get(team_leader_github=request.user.username)
+    except ObjectDoesNotExist:
+        try:
+            team.objects.get(member1_github=request.user.username)
+        except ObjectDoesNotExist:
+            try:
+                team.objects.get(member2_github=request.user.username)
+            except ObjectDoesNotExist:
+                try:
+                    team.objects.get(member3_github=request.user.username)
+                except ObjectDoesNotExist:
+                    messages.warning(request, "You are not a participant")
+                    return redirect("home")
+    return render(request, 'pages/dashboard.html')
 
 
 def logout(request):
