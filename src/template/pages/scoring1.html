@@ -157,33 +157,75 @@
              * Print the names and majors of students in a sample spreadsheet:
              * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
              */
-            function listMajors() {
-              gapi.client.sheets.spreadsheets.values.get({
-                //spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-                spreadsheetId: '17oEla0O_QZrRBGq7sR4f6Q10nBW9vllGhMIBK2i0Vhw',
-                range: 'Form Responses 1!A2:E',
-              }).then(function(response) {
-                var range = response.result;
-                if (range.values.length > 0) {
-                  appendPre('Time stamp,          Pdf link:');
-                  for (i = 0; i < range.values.length; i++) {
-                    var row = range.values[i];
-                    // Print columns A and E, which correspond to indices 0 and 4.
-                    appendPre(row[0] + ',   ' + row[1]);
-                    var s = 'https://drive.google.com/file/d/';
-                    row[1] = row[1].replace('https://drive.google.com/open?id=',s);
-                    row[1] = row[1].concat('/preview');
-                    document.getElementById('pdf_a').src= row[1];
-                    document.getElementById('abstract').innerHTML= row[0];
-                    appendPre(row[0] + ',   ' + row[1]);
-                  }
-                } else {
-                  appendPre('No data found.');
-                }
-              }, function(response) {
-                appendPre('Error: ' + response.result.error.message);
-              });
-            }
+		function listMajors() {
+			var s = 'https://drive.google.com/file/d/';
+			gapi.client.sheets.spreadsheets.values.get({
+			//spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
+			spreadsheetId: '1-_19xouPpiJWVRqJWolw1XXDBeq3QqTdWccK_dzk2t0',
+			range: 'Form Responses 1!A1:J',
+			}).then(function(response) {
+				var range = response.result;
+				if (range.values.length > 0) {
+					appendPre('Time stamp,          Pdf link:');
+					for (i = 1; i < range.values.length; i++) {
+						var row = range.values[i];
+						//appendPre(row[9]);
+						console.log('i ='+ i);
+						console.log('J[i] ='+ row[9]);
+						appendPre('________  '+row[0] + ',  				 ' + row[1]+',					' + row[9]);
+
+						if(row[9]<0.1)// 9 is J
+						{
+							// ____________________ write 1 ___________________
+							console.log('In loop ');
+
+							var values = [
+								[
+								// Cell values ...
+								1
+								],
+								// Additional rows ...
+							];
+							var body = {
+								values: values
+							};
+							var no = i+1;
+							var cell_state = 'J'+no+':J'+no;
+
+							console.log('about to change '+ cell_state );
+
+							gapi.client.sheets.spreadsheets.values.update({
+								spreadsheetId: '1-_19xouPpiJWVRqJWolw1XXDBeq3QqTdWccK_dzk2t0',
+								range: cell_state,
+								valueInputOption: 'RAW',
+								resource: body
+							}).then((response) => {
+								var result = response.result;
+								console.log(`${result.updatedCells} cells updated.`);
+							});
+
+							//----------------------------------------------------
+
+							// Print columns A and E, which correspond to indices 0 and 4.
+
+							document.getElementById('abstract').innerHTML= row[0];
+
+							row[1] = row[1].replace('https://drive.google.com/open?id=',s);
+							row[1] = row[1].concat('/preview');
+							document.getElementById('pdf_a').src= row[1];
+							appendPre(row[0] + ',  				 ' + row[1]+',					' + row[9]);
+
+							return // find the first row with status 0 
+						}
+				  } 
+				}
+				else {
+					appendPre('No data found.');
+				}
+			}, function(response) {
+			    appendPre('Error: ' + response.result.error.message);
+			});
+		}
         </script>
         <script async defer src="https://apis.google.com/js/api.js"
           onload="this.onload=function(){};handleClientLoad()"
