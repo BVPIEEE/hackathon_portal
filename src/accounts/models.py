@@ -8,7 +8,7 @@ from django.dispatch import receiver
 class team(models.Model):
     team_name = models.CharField(max_length=255, blank=False, null=False)
     team_leader_github = models.CharField(max_length=255, blank=False, null=False)
-    member1_github = models.CharField(max_length=255, blank=False, null=False)
+    member1_github = models.CharField(max_length=255, blank=True, null=True)
     member2_github = models.CharField(max_length=255, blank=True, null=True)
     member3_github = models.CharField(max_length=255, blank=True, null=True)
 
