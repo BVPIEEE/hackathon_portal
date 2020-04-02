@@ -6,8 +6,8 @@
 
       <div class="chart-wrapper">
                  <div>
-            <button>
-                next
+            <button onclick="listMajors()">
+                Next Team To Score
             </button>
         </div>
         <div class="chart-title">
@@ -226,6 +226,7 @@
 			    appendPre('Error: ' + response.result.error.message);
 			});
 		}
+
         </script>
         <script async defer src="https://apis.google.com/js/api.js"
           onload="this.onload=function(){};handleClientLoad()"
