@@ -94,25 +94,30 @@ def scoring_dashboardFinal(request):
     form = scoringForm(obj)
     return render(request, 'pages/scoringFinal.html', {'form': form.data})
 
+def get_team(request):
+    try:
+        return team.objects.get(team_leader_github=request.user.username)
+    except ObjectDoesNotExist:
+        try:
+            return team.objects.get(member1_github=request.user.username)
+        except ObjectDoesNotExist:
+            try:
+                return team.objects.get(member2_github=request.user.username)
+            except ObjectDoesNotExist:
+                try:
+                    return team.objects.get(member3_github=request.user.username)
+                except ObjectDoesNotExist:
+                    return False
 
 def participant_dashboard(request):
     if request.user.is_anonymous:
         messages.warning(request, "Login using Github first")
         return redirect("home")
-    try:
-        team.objects.get(team_leader_github=request.user.username)
-    except ObjectDoesNotExist:
-        try:
-            team.objects.get(member1_github=request.user.username)
-        except ObjectDoesNotExist:
-            try:
-                team.objects.get(member2_github=request.user.username)
-            except ObjectDoesNotExist:
-                try:
-                    team.objects.get(member3_github=request.user.username)
-                except ObjectDoesNotExist:
-                    messages.warning(request, "You are not a participant")
-                    return redirect("home")
+    
+    if get_team(request) is False:
+        messages.warning(request, "You are not a participant")
+        return redirect("home")
+    
     return render(request, 'pages/dashboard.html')
 
 
@@ -124,23 +129,35 @@ def logout(request):
 
 
 def submission1(request):
-    try:
-        team.objects.get(team_leader_github=request.user.username)
-    except ObjectDoesNotExist:
-        messages.warning(request, "Only Leader can submit the task")
-        return redirect("dashboard")
+    # try:
+    #     team.objects.get(team_leader_github=request.user.username)
+    # except ObjectDoesNotExist:
+    #     messages.warning(request, "Only Leader can submit the task")
+    #     return redirect("dashboard")
+
+    if get_team(request) is False:
+        messages.warning(request, "You are not the participant")
+        return redirect("home")
+
     return render(request, "pages/submission1.html")
 
 
 def submission2(request):
-    try:
-        teamObj = team.objects.get(team_leader_github=request.user.username)
-    except ObjectDoesNotExist:
-        messages.warning(request, "Only Leader can submit the task")
-        return redirect("dashboard")
+    # try:
+    #     team = team.objects.get(team_leader_github=request.user.username)
+    # except ObjectDoesNotExist:
+    #     messages.warning(request, "Only Leader can submit the task")
+    #     return redirect("dashboard")
+
+    # 2nd method
+    team = get_team(request)
+
+    if team is False:
+        messages.warning(request, "You are not the participant")
+        return redirect("home")
 
     try:
-        phase = phaseSelectionModel.objects.get(team=teamObj)
+        phase = phaseSelectionModel.objects.get(team=team)
     except ObjectDoesNotExist:
         messages.warning(request, "You cannot access this section")
         return redirect("dashboard")
@@ -153,14 +170,21 @@ def submission2(request):
 
 
 def submission3(request):
-    try:
-        teamObj = team.objects.get(team_leader_github=request.user.username)
-    except ObjectDoesNotExist:
-        messages.warning(request, "Only Leader can submit the task")
-        return redirect("dashboard")
+    # try:
+    #     team = team.objects.get(team_leader_github=request.user.username)
+    # except ObjectDoesNotExist:
+    #     messages.warning(request, "Only Leader can submit the task")
+    #     return redirect("dashboard")
+
+    # 2nd method
+    team = get_team(request)
+
+    if team is False:
+        messages.warning(request, "You are not the participant")
+        return redirect("home")
 
     try:
-        phase = phaseSelectionModel.objects.get(team=teamObj)
+        phase = phaseSelectionModel.objects.get(team=team)
     except ObjectDoesNotExist:
         messages.warning(request, "You cannot access this section")
         return redirect("dashboard")
@@ -173,14 +197,21 @@ def submission3(request):
 
 
 def submission4(request):
-    try:
-        teamObj = team.objects.get(team_leader_github=request.user.username)
-    except ObjectDoesNotExist:
-        messages.warning(request, "Only Leader can submit the task")
-        return redirect("dashboard")
+    # try:
+    #     team = team.objects.get(team_leader_github=request.user.username)
+    # except ObjectDoesNotExist:
+    #     messages.warning(request, "Only Leader can submit the task")
+    #     return redirect("dashboard")
+
+    # 2nd method
+    team = get_team(request)
+
+    if team is False:
+        messages.warning(request, "You are not the participant")
+        return redirect("home")
 
     try:
-        phase = phaseSelectionModel.objects.get(team=teamObj)
+        phase = phaseSelectionModel.objects.get(team=team)
     except ObjectDoesNotExist:
         messages.warning(request, "You cannot access this section")
         return redirect("dashboard")
@@ -193,14 +224,21 @@ def submission4(request):
 
 
 def final(request):
-    try:
-        teamObj = team.objects.get(team_leader_github=request.user.username)
-    except ObjectDoesNotExist:
-        messages.warning(request, "Only Leader can submit the task")
-        return redirect("dashboard")
+    # try:
+    #     team = team.objects.get(team_leader_github=request.user.username)
+    # except ObjectDoesNotExist:
+    #     messages.warning(request, "Only Leader can submit the task")
+    #     return redirect("dashboard")
+
+    # 2nd method
+    team = get_team(request)
+
+    if team is False:
+        messages.warning(request, "You are not the participant")
+        return redirect("home")
 
     try:
-        phase = phaseSelectionModel.objects.get(team=teamObj)
+        phase = phaseSelectionModel.objects.get(team=team)
     except ObjectDoesNotExist:
         messages.warning(request, "You cannot access this section")
         return redirect("dashboard")
