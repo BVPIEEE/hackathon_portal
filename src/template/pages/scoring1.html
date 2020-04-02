@@ -48,7 +48,7 @@
           Form for grading
         </div>
         <div class="chart-stage" style="height:80%;">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf2WgDt0bVF2iNhqdm4V47N088ncVTXQ3XOQ7SuLsPYyZ2xgQ/viewform?embedded=true" HEIGHT="100%"  width="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            <iframe id="form" src="" HEIGHT="100%"  width="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
         </div>
       </div>
 
@@ -161,8 +161,8 @@
 			var s = 'https://drive.google.com/file/d/';
 			gapi.client.sheets.spreadsheets.values.get({
 			//spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-			spreadsheetId: '1-_19xouPpiJWVRqJWolw1XXDBeq3QqTdWccK_dzk2t0',
-			range: 'Form Responses 1!A1:J',
+			spreadsheetId: '{{ sheet_id }}';
+			range: 'Form Responses {{ round }}!A1:{{ state_column }}',
 			}).then(function(response) {
 				var range = response.result;
 				if (range.values.length > 0) {
@@ -171,10 +171,10 @@
 						var row = range.values[i];
 						//appendPre(row[9]);
 						console.log('i ='+ i);
-						console.log('J[i] ='+ row[9]);
+						console.log('{{ state_column }}[i] ='+ row[9]);
 						appendPre('________  '+row[0] + ',  				 ' + row[1]+',					' + row[9]);
-
-						if(row[9]<0.1)// 9 is J
+						var pos = '{{ state_column }}'.charCodeAt(0) - "A".charCodeAt(0) + 1 ;
+						if(row[pos]<0.1)
 						{
 							// ____________________ write 1 ___________________
 							console.log('In loop ');
@@ -190,12 +190,12 @@
 								values: values
 							};
 							var no = i+1;
-							var cell_state = 'J'+no+':J'+no;
+							var cell_state = '{{ state_column }}'+no+':{{ state_column }}'+no;
 
 							console.log('about to change '+ cell_state );
 
 							gapi.client.sheets.spreadsheets.values.update({
-								spreadsheetId: '1-_19xouPpiJWVRqJWolw1XXDBeq3QqTdWccK_dzk2t0',
+								spreadsheetId: '{{ sheet_id }}',
 								range: cell_state,
 								valueInputOption: 'RAW',
 								resource: body
@@ -207,14 +207,31 @@
 							//----------------------------------------------------
 
 							// Print columns A and E, which correspond to indices 0 and 4.
+							if({{ round }} == 1){
+								document.getElementById('form').src='{{ form1 }}';
+								document.getElementById('abstract').innerHTML= row[3];
+							}
+							else {
+								if({{ round }} == 2){
+									document.getElementById('form').src='{{ form2 }}';
+									row[3] = row[3].replace('https://drive.google.com/open?id=',s);
+									row[3] = row[3].concat('/preview');
+									document.getElementById('pdf_a').src= row[3];
 
-							document.getElementById('abstract').innerHTML= row[0];
-
-							row[1] = row[1].replace('https://drive.google.com/open?id=',s);
-							row[1] = row[1].concat('/preview');
-							document.getElementById('pdf_a').src= row[1];
-							appendPre(row[0] + ',  				 ' + row[1]+',					' + row[9]);
-
+									row[4] = row[4].replace('https://drive.google.com/open?id=',s);
+									row[4] = row[4].concat('/preview');
+									document.getElementById('pdf_b').src= row[4];
+								}
+							
+								else {
+									if({{ round }} == 3){
+										document.getElementById('form').src='{{ form3 }}';
+										row[3] = row[3].replace('https://drive.google.com/open?id=',s);
+										row[3] = row[3].concat('/preview');
+										document.getElementById('pdf_a').src= row[3];
+									}
+								}
+							}
 							return // find the first row with status 0 
 						}
 				  } 
