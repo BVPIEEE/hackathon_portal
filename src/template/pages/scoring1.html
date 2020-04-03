@@ -206,6 +206,31 @@
 							//----------------------------------------------------
 
 							// Print columns A and E, which correspond to indices 0 and 4.
+							if({{ form2.round }} == 1){
+								document.getElementById('form').src='{{ form2.form_link }}';
+								document.getElementById('abstract').innerHTML= row[3];
+							}
+							else {
+								if({{ form2.round }} == 2){
+									document.getElementById('form').src='{{ form2.form_link }}';
+									row[3] = row[3].replace('https://drive.google.com/open?id=',s);
+									row[3] = row[3].concat('/preview');
+									document.getElementById('pdf_a').src= row[3];
+
+									row[4] = row[4].replace('https://drive.google.com/open?id=',s);
+									row[4] = row[4].concat('/preview');
+									document.getElementById('pdf_b').src= row[4];
+								}
+							
+								else {
+									if({{ form2.round }} == 3){
+										document.getElementById('form').src='{{ form2.form_link }}';
+										row[3] = row[3].replace('https://drive.google.com/open?id=',s);
+										row[3] = row[3].concat('/preview');
+										document.getElementById('pdf_a').src= row[3];
+									}
+								}
+							}
 							return // find the first row with status 0 
 						}
 				  } 
