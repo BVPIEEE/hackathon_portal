@@ -1,0 +1,50 @@
+*{
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+body{
+  font-family: sans-serif;
+}
+#particles-js{
+  background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url("../images/WIEHack_girl.6574bb206753.png");
+  background-size: contain;
+  background-repeat:no-repeat;
+  background-color: black;
+  background-position: center;
+  height: 100vh;
+}
+/* .logo{
+  margin-top: 25px;
+  font-size: 28px;
+  text-transform: uppercase;
+} */
+.welcome{
+  margin-left: 5%;
+  position: absolute;
+  color: #fff;
+  font-family: sans-serif;
+}
+.welcome h1{
+  margin-top: 200px;
+  letter-spacing: 2px;
+  font-size: 42px;
+  text-transform: uppercase;
+}
+.welcome p{
+  font-size: 16px;
+  margin-top: 25px;
+  font-family: monospace;
+}
+.startbtn a{
+  background-color: #dccc1d;
+  color: black;
+  text-decoration: none;
+  letter-spacing: 2px;
+  position: fixed;
+  margin-top: 30px;
+  padding: 15px 30px;
+
+}

@@ -1,0 +1,20 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}" type="text/css">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/784a640782.js" crossorigin="anonymous"></script>
+    <title>Wiehack 2.0</title>
+  </head>
+  <body>
+        {% include 'partials/_alerts.html'%}
+        {% include 'partials/_navbar.html' %}
+        {% block content %} {% endblock %}
+  <div id="particles-js"></div>
+  <script src="{% static 'js/particles.js' %}"></script>
+  <script src="{% static 'js/app.js' %}"></script>
+  <script type="{% static 'js/livestream.js' %}"></script>
+</body>
+</html>

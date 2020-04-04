@@ -1,1 +1,2 @@
-web: gunicorn src.hackSettings.wsgi --log-file -
+web: gunicorn hackSettings.wsgi
+release: python manage.py migrate

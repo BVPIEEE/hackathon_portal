@@ -1,0 +1,30 @@
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/background.css'%}" type="text/css">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/784a640782.js" crossorigin="anonymous"></script>
+    <title>WIEHACK 2.0</title>
+  </head>
+  <body>
+
+    <div class="welcome">
+
+      <h1>WIEHACK 2.0</h1>
+      <h2>NATIONAL LEVEL. ALL WOMEN. VIRTUAL HACKATHON.</h2>
+      <p>WIEHACK 2.0 is an all-women, 36-hour, virtual hackathon <br> Organized by BVPIEEE</p>
+
+      <div class="startbtn">
+        <a href="{% url 'dashboard' %}">START HACKATHON</a>
+
+      </div>
+
+      </div>
+
+      <div id="particles-js"></div>
+      <script src="{% static 'js/particles.js' %}"></script>
+      <script src="{% static 'js/app.js' %}"></script>
+
+  </body>
+</html>

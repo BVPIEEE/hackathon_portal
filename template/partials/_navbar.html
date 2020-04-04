@@ -1,0 +1,20 @@
+<div class="welcome">
+<nav class="navbar">
+      <label class="logo">WIEHACK 2.0</label>
+      <ul class="nav">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="https://wiehack.bvpieeend.com/rulebook.pdf">Rulebook</a></li>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="#">Telegram Group</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="javascript:{document.getElementById('logout').submit()}" ><strong>Logout</strong></a></li>
+                <form action="{% url 'logout' %}" id ='logout' method="POST">
+                    {% csrf_token %}
+                    <input type="hidden">
+                </form>
+			{% else %}
+				<li><a id="login" href="{% url 'social:begin' 'github' %}"><strong>Github Login</strong></a></li>
+			{% endif %}
+      </ul>
+  </nav>
+  

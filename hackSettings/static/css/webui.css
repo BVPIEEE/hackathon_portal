@@ -1,0 +1,268 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  font-family: sans-serif;
+  text-decoration: none;
+
+}
+body{
+  background-image: url(https://wiehack.bvpieeend.com/img/logo/WIEHackLogo.png);
+  background-color: black;
+  position: absolute;
+  background-position: 450px 100px;
+
+  align-self: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+h1{
+  position: absolute;
+  color: #de26bc;
+  left: 510px;
+  font-size: 50px;
+  font-family: sans-serif;
+}
+#btnScrollToTop{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #e62739;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+#btnScrollToTop:active{
+  background: #cc2333;
+}
+h4{
+  position: absolute;
+  color: red;
+  left: 150px;
+  top: 110px;
+  font-size: 30px;
+  font-family: sans-serif;
+
+
+}
+p{
+  color: white;
+  top: 220px;
+  margin: 150px;
+  font-size: 20px;
+  font-family:sans-serif;
+  text-align: justify;
+}
+.FAQ{
+  position: absolute;
+  color: yellow;
+  left: 500px;
+  top: 130px;
+  font-size: 40px;
+  font-family: sans-serif;
+
+}
+.livestream{
+  position: absolute;
+  color: orange;
+  left: 570px;
+  font-size: 40px;
+  top:370px;
+  font-family: sans-serif;
+}
+.icons{
+
+  position: fixed;
+  top: 30%;
+  right: 0%;
+  width: 230px;
+  display: flex;
+  flex-direction: column;
+}
+.icons a{
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 10px;
+  font-size: 22px;
+  font-family: 'Oswald', sans-serif;
+  margin: 2px;
+  text-align: left;
+  border-radius: 50px 0px 0px 50px;
+  transform: translate(180px, 0px);
+  transition: all 0.5s;
+}
+.icons a:hover{
+  transform: translate(0px, 0px);
+}
+.icons a i{
+  margin-right: : 20px;
+  background-color: white;
+  height: 40px;
+  width: 40px;
+  color: black;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  transition: all 0.5s;
+}
+.icons a:hover i{
+  transform: rotate(360deg);
+}
+.icons a i.fa-file-upload{
+  color: #2c80d3;
+}
+.icons a i.fa-video{
+  color: #fa0910;
+}
+.icons a i.fa-question-circle{
+  color: #53c5ff;
+}
+.submissions{
+  background-color: #2c80d3;
+  color: white;
+}
+.video{
+  background-color: #fa0910;
+  color: white;
+}
+.faq{
+  background-color: #53c5ff;
+  color: white;
+}
+.sidebar{
+  position: fixed;
+  width: 250px;
+  height: 100%;
+  left: -250px;
+  background: #042331;
+  transition: all .5s ease;
+}
+.sidebar header{
+  font-size: 22px;
+  color: white;
+  text-align: center;
+  line-height: 70px;
+  background: #063146;
+  user-select: none;
+}
+.sidebar ul a{
+  display: block;
+  height: 100%;
+  width: 100%;
+  line-height: 65px;
+  font-size: 20px;
+  color: white;
+  padding-left: 40px;
+  box-sizing: border-box;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+  border-bottom: 1px solid black;
+  transition: .4s;
+}
+ul li:hover a{
+  padding-left: 50px;
+}
+.sidebar ul a i{
+  margin-right: 16px;
+}
+#check{
+  display: none;
+}
+label #btn, label #cancel{
+  position: absolute;
+  cursor: pointer;
+  background: #042331;
+  border-radius: 3px;
+}
+label #btn{
+  left: 40px;
+  top: 25px;
+  font-size: 35px;
+  color: white;
+  padding: 6px 12px;
+  transition: all 0.5s;
+}
+label #cancel{
+  z-index: 1111;
+  left: -205px;
+  top: 17px;
+  font-size: 30px;
+  color: #0a5275;
+  padding: 4px 9px;
+  transition: all .5s ease;
+}
+#check:checked ~ .sidebar{
+  left: 0px;
+}
+#check:checked ~ label #btn{
+  left: 250px;
+  opacity: 0;
+  pointer-events: none;
+}
+#check:checked ~ label #cancel{
+  left: 205px;
+}
+
+#check:checked ~ section{
+  margin-left: 250px;
+}
+
+.upload{
+  height: 100%;
+  background-image: url(https://wiehack.bvpieeend.com/img/logo/WIEHackLogo.png);
+
+}
+.instructions{
+  background-color: transparent;
+  color: yellow;
+  font-size: 20px;
+  text-align: justify;
+  font-family:sans-serif;
+  position:fixed;
+  top: 110px;
+  left: 100px;
+
+}
+.instructions ol li{
+  font-size: 20px;
+  text-align: justify;
+  top: 90px;
+  left: 120px;
+}
+.booth{
+  width: 500px;
+  height: 400px;
+  margin-top: 100px;
+  background: #ccc;
+  border: 5px solid #ddd;
+  margin-left: 450px;
+  position:static;
+}
+
+
+
+
+/* input[type="file"]{
+  display: none;
+}
+label{
+  color: white;
+  height: 60px;
+  width: 150px;
+  background-color: #de7c26;
+  position: fixed;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
+} */

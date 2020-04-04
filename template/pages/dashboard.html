@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div>
+      <h4>INSTRUCTIONS TO LIVESTREAM:</h4>
+      <p>Welcome to the hackathon Dashboard !!<br>
+       <ul>
+       <li><li>
+       </ul>
+      </p>
+      <div class="icons">
+        <a href="{% url "submission" %}" class="submissions"><i class="fas fa-file-upload"></i>SUBMISSION</a>
+        <a href="https://www.youtube.com/embed/NqFUPJGQTd0" class="video"><i class="fas fa-video"></i>LIVESTREAM</a>
+        <a href="https://wiehack.bvpieeend.com/#faqs" class="faq"><i class="fas fa-question-circle"></i>FAQs</a>
+      </div>
+    </div>
+    <h2 class="livestream">LIVESTREAM</h2>
+    <div class="booth">
+     <iframe width="500" height="400" src="{{ form.link }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+{% endblock %}
