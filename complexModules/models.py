@@ -29,3 +29,9 @@ class gradeModel(models.Model):
             
 class currentRound(models.Model):
     round = models.IntegerField(null=False, blank=False)
+
+class roundDetails(models.Model):
+    round = models.IntegerField(null=False, blank=False)
+    round_todo = models.TextField(null=False, blank=False)
+    round_info = models.TextField(null=False, blank=False)
+    round_template = models.TextField(null=False,blank=False)

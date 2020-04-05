@@ -4,8 +4,8 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from accounts.models import team, phaseSelectionModel, manageTeam
-from complexModules.models import scoringModel, gradeModel, currentRound, submissionModel
-from .forms import scoringForm, gradeForm, submissionForms, youtubeForms
+from complexModules.models import scoringModel, gradeModel, currentRound, submissionModel, roundDetails
+from .forms import scoringForm, gradeForm, submissionForms, youtubeForms, roundDetailsForm
 from .models import youtubeModel
 # Create your views here.
 from hackSettings.settings import BASE_DIR
@@ -57,7 +57,16 @@ def participant_dashboard(request):
     model = youtubeModel.objects.all()
     form = youtubeForms(model[0])
     round = currentRound.objects.all()
-    return render(request, 'pages/dashboard.html', {"form":form.data, "round":round[0].round})
+    
+    # round details
+    try:
+        obj = roundDetails.objects.get(round = round[0].round)
+    except ObjectDoesNotExist:
+        messages.warning(request,"This is server side problem, Kindly contact to the WIEHACK 2.0 Team")
+        return redirect('about')
+        
+    form2 = roundDetailsForm(obj)
+    return render(request, 'pages/dashboard.html', {"form":form.data, "round":round[0].round, "form2":form2.data})
 
 
 def logout(request):
@@ -71,16 +80,17 @@ def submission1(request):
     if request.user.is_anonymous:
         messages.warning(request, "Login through Github First")
         return redirect("dashboard")
+        
+    # team = get_team(request)
+    # if team is False:
+    #     messages.warning(request, "You are not the participant")
+    #     return redirect("dashboard")
 
-    team = get_team(request)
-    if team is False:
-        messages.warning(request, "You are not the participant")
-        return redirect("dashboard")
-
-    phase = phaseSelectionModel.objects.get(team=team)
+    # phase = phaseSelectionModel.objects.get(team=team)
     round = currentRound.objects.all()
 
-    if round[0].round == phase.round:    
+    # if round[0].round == phase.round:  
+    if True:  
         try:
             obj = submissionModel.objects.get(round=round[0].round)
         except ObjectDoesNotExist:
@@ -98,3 +108,9 @@ def about(request):
     model = youtubeModel.objects.all()
     form = youtubeForms(model[0])
     return render(request, "pages/about.html", {"form":form.data})
+
+def themes(request):
+    return render(request, "pages/themes.html")
+
+def info(request):
+    return render(request, "pages/general_ins.html")

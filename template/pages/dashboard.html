@@ -11,9 +11,9 @@
     body{
       margin: 0;
       padding: 0;
-      background: #c2e59c;  /* fallback for old browsers */
-      background: -webkit-linear-gradient(to right, #64b3f4, #c2e59c);  /* Chrome 10-25, Safari 5.1-6 */
-      background: linear-gradient(to right, #64b3f4, #c2e59c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      background: #f9c5d1;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #f9c5d1, #9795ef);  /* Chrome 10-25, Safari 5.1-6 */
+      background-image: linear-gradient(315deg, #f9c5d1 0%, #9795ef 74%); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
       width:100%
     }
     body::-webkit-scrollbar{
@@ -210,20 +210,19 @@
                 <iframe class="stream emboss"  width="700" src="{{ form.link }}?rel=0;controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
              <div class="column" style="align:right;">
-                 <iframe class="stream emboss" style="align: right;" width="370" src="https://www.youtube.com/live_chat?v=mZEh0yc5b7U&amp;embed_domain=127.0.0.1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+                 <iframe class="stream emboss" style="align: right;" width="370" src="https://www.youtube.com/live_chat?v={{ form.chat }}&amp;embed_domain=hack.bvpieeend.com" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
              </div>
         </div>
      </div>
      <div class="container">
             <div class="emboss card">
                 <div class="content">
-                  <h2>Round {{ form.round }}</h2>
-                  <h3>TODO : {{ form.round_todo }}</h3>
-                  <p>{{ form.round_info }}
+                  <h2>Round {{ round }}</h2>
+                  <h3>TODO : {{ form2.round_todo }}</h3>
+                  <p>{{ form2.round_info }}
                    </p>
                     <div class="read_more" >
-                        <a href="{{ form.round_template }}">Download Template</a>
+                        <a href="{{ form2.round_template }}">Download Template</a>
                     </div>
                 </div>
             </div>

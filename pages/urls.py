@@ -8,6 +8,8 @@ urlpatterns = [
     path("dashboard/", views.participant_dashboard, name="dashboard"),
     path("scoring/", views.scoring_dashboard, name="scoring"),
     path("submission/", views.submission1, name="submission"),
-    path("about/", views.about, name="about")
+    path("about/", views.about, name="about"),
+    path("about/themes/", views.themes, name="themes"),
+    path("about/info/", views.info, name="info")
 ]
 
