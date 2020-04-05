@@ -1,21 +1,23 @@
-{% load static%}
-<!DOCTYPE html>
+{% load static %}
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="{% static 'css/homepage.css' %}" type="text/css">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/784a640782.js" crossorigin="anonymous"></script>
-    <title>Wiehack 2.0</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://kit.fontawesome.com/784a640782.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'css/info.css'%}" type="text/css">
+<title>Wiehack 2.0</title>
   </head>
   <body>
         {% include 'partials/_alerts.html'%}
         {% include 'partials/_navbar.html' %}
         {% block content %} {% endblock %}
-  <div id="particles-js"></div>
-  <script src="{% static 'js/particles.js' %}"></script>
-  <script src="{% static 'js/app.js' %}"></script>
-  <script type="{% static 'js/livestream.js' %}"></script>
-</body>
+        
+    <div class="icons">
+        <a href='{% url "submission" %}' class="submissions"><i class="fas fa-file-upload"></i>SUBMISSION</a>
+        <a href="{{ form.link }}" class="video"><i class="fas fa-video"></i>LIVESTREAM</a>
+        <a href="https://wiehack.bvpieeend.com/#faqs" class="faq"><i class="fas fa-question-circle"></i>FAQs</a>
+     </div>
+     <br>
+  </body>
 </html>

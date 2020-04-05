@@ -56,7 +56,8 @@ def get_team(request):
 def participant_dashboard(request):
     model = youtubeModel.objects.all()
     form = youtubeForms(model[0])
-    return render(request, 'pages/dashboard.html', {"form":form.data})
+    round = currentRound.objects.all()
+    return render(request, 'pages/dashboard.html', {"form":form.data, "round":round[0].round})
 
 
 def logout(request):
@@ -91,3 +92,9 @@ def submission1(request):
     
     messages.warning(request,"You have not yet qualified for this round")
     return redirect("dashboard")
+
+
+def about(request):
+    model = youtubeModel.objects.all()
+    form = youtubeForms(model[0])
+    return render(request, "pages/about.html", {"form":form.data})
