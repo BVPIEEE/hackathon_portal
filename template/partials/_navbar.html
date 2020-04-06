@@ -43,10 +43,9 @@
                     {% csrf_token %}
                     <input type="hidden">
                 </form>
-        
         {% else %}
         <li class="nav-item">
-          <a href="{% url 'social:begin' 'github' %}" class="nav-link">
+          <a href="#terms" class="nav-link">
               <span class="link-text">GITHUB LOGIN</span>
               <i class="fa fa-github" aria-hidden="true"></i>
           </a>

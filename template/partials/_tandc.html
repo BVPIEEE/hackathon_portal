@@ -1,0 +1,102 @@
+<style>
+        .button {
+          font-size: 1em;
+          padding: 10px;
+          color: #fff;
+          border: 2px solid #06D85F;
+          border-radius: 20px/50px;
+          text-decoration: none;
+          cursor: pointer;
+          width:95%;
+          transition: all 0.3s ease-out;
+        }
+        .button:hover {
+          background: #06D85F;
+        }
+
+        .overlay {
+          position: fixed;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: rgba(0, 0, 0, 0.7);
+          transition: opacity 500ms;
+          visibility: hidden;
+          opacity: 0;
+        }
+        .overlay:target {
+          visibility: visible;
+          opacity: 1;
+        }
+
+        .popup {
+          margin: 70px auto;
+          padding: 20px;
+          background: #fff;
+          border-radius: 5px;
+          width: 50%;
+          position: relative;
+          transition: all 5s ease-in-out;
+        }
+
+        .popup h2 {
+          margin-top: 0;
+          color: #333;
+          font-family: Tahoma, Arial, sans-serif;
+        }
+        .popup .close {
+          position: absolute;
+          top: 20px;
+          right: 30px;
+          transition: all 200ms;
+          font-size: 30px;
+          font-weight: bold;
+          text-decoration: none;
+          color: #333;
+        }
+        .popup .close:hover {
+          color: #06D85F;
+        }
+        .popup .content {
+          max-height: 30%;
+          overflow: auto;
+        }
+
+        @media screen and (max-width: 700px){
+          .box{
+            width: 70%;
+          }
+          .popup{
+            width: 70%;
+          }
+        }
+  </style>
+<div id="terms" class="overlay">
+          <div class="popup">
+            <font color="black"><h2>Terms and Conditions</h2>
+                <a class="close" href="#">&times;</a>
+                <strong>General:</strong><br>
+                <ul>
+                  <li>BY PARTICIPATING, YOU AGREE TO THESE TERMS AND CONDITIONS.</li>
+                  <li>NO ENTRY FEE.</li>
+                  <li>The Hackathon begins at 9:00 AM IST on April 8, 2020, and ends at 10:00 PM IST on April 9, 2020.</li>
+                  <li>Organizers withhold the right to disqualify any participant who is found to have violated these guidelines.</li>                  
+                </ul>
+                <strong>Participation:</strong><br>
+                <ul>
+                  <li>Switching teams is not allowed, before or during the hackathon.</li>
+                  <li>No pre-existing projects are will be allowed and if found, can lead to the disqualification of the entire team.</li>
+                  <li>One entry per team is allowed.</li>
+                  <li>Each participant must have access to her own laptop/desktop for their participation.</li>                  
+                </ul>
+              <strong>Link:<a href="https://docs.google.com/document/d/1wgNqU0UAsaPTaFinyW4AYsN3I9dRkgFVyyKfl1auo7o/edit">T&C</a><br></strong>
+              <br>
+              </font>
+           <a href="{% url 'social:begin' 'github' %}"> <div class="button" style="color:black;">
+             I Agree with Terms and Conditions
+           </div>
+           </a>
+
+      </div>
+</div>
