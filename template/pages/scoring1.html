@@ -228,7 +228,7 @@
 						console.log('i ='+ i);
 						console.log('{{ form2.state_column }}[i] ='+ row[9]);
 						appendPre('________  '+row[0] + ',  				 ' + row[1]+',					' + row[9]);
-						var pos = '{{ form2.state_column }}'.charCodeAt(0) - "A".charCodeAt(0) + 1 ;
+						var pos = '{{ form2.state_column }}'.charCodeAt(0) - "A".charCodeAt(0);
 						if(row[pos]<0.1)
 						{
 							// ____________________ write 1 ___________________
