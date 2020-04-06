@@ -191,8 +191,8 @@
    .read_more{
     size: 18px;
     position: absolute;
-    bottom: 50px;
-    right: 50px;
+    bottom: 15px;
+    right: 15px;
     }
   </style>
   </head>
@@ -219,8 +219,7 @@
                 <div class="content">
                   <h2>Round {{ round }}</h2>
                   <h3>TODO : {{ form2.round_todo }}</h3>
-                  <p>{{ form2.round_info }}
-                   </p>
+                  <pre>{{ form2.round_info }}</pre>
                     <div class="read_more" >
                         <a href="{{ form2.round_template }}">Download Template</a>
                     </div>
