@@ -97,7 +97,8 @@ def submission1(request):
             return redirect("dashboard")
             
         form2 = submissionForms(obj)
-        return render(request, "pages/submission1.html", {"form":form2.data})
+        return redirect(form2.data.form_link)
+        # return render(request, "pages/submission1.html", {"form":form2.data}) # because google form not working
     
     messages.warning(request,"You have not yet qualified for this round")
     return redirect("dashboard")
