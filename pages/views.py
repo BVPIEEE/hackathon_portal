@@ -36,6 +36,9 @@ def scoring_dashboard(request):
         return redirect('dashboard')
 
     form2 = gradeForm(obj)
+
+    if round[0].round > 4:
+            return render(request, 'pages/judge_scoring.html', {'form':form.data,'form2':form2.data})
     return render(request, 'pages/scoring1.html', {'form': form.data, 'form2':form2.data})
 
 def get_team(request):

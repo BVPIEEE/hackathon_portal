@@ -49,6 +49,7 @@
 			{% endif %}
             <li><a href="{% url 'home' %}">Home</a></li>
                       <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                      <li><a href="#support">Provide Suggestions to the Team</a></li>
         </ul>
       </div>
     </div>
@@ -326,5 +327,6 @@
 
     window.addEventListener('DOMContentLoaded', toggleMenu);
   </script>
+    {% include 'partials/_mail.html'%}
 </body>
 </html>
