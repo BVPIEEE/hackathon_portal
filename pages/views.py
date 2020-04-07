@@ -33,12 +33,17 @@ def scoring_dashboard(request):
         obj = gradeModel.objects.get(round=round[0].round)
     except ObjectDoesNotExist:
         messages.warning(request,"This is server side problem, Kindly contact to the WIEHACK 2.0 Team")
-        return redirect('dashboard')
+        return redirect('login')
 
     form2 = gradeForm(obj)
 
     if round[0].round > 4:
             return render(request, 'pages/judge_scoring.html', {'form':form.data,'form2':form2.data})
+    
+    if authority.role == 'j':
+        messages.warning(request,"Final round has not yet started")
+        return redirect('login')
+        
     return render(request, 'pages/scoring1.html', {'form': form.data, 'form2':form2.data})
 
 def get_team(request):
