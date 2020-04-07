@@ -77,19 +77,20 @@ def logout(request):
 
 
 def submission1(request):
-    if request.user.is_anonymous:
-        messages.warning(request, "Login through Github First")
-        return redirect("dashboard")
+    # if request.user.is_anonymous:
+    #     messages.warning(request, "Login through Github First")
+    #     return redirect("dashboard")
         
-    team = get_team(request)
-    if team is False:
-        messages.warning(request, "You are not the participant")
-        return redirect("dashboard")
+    # team = get_team(request)
+    # if team is False:
+    #     messages.warning(request, "You are not the participant")
+    #     return redirect("dashboard")
 
-    phase = phaseSelectionModel.objects.get(team=team)
+    # phase = phaseSelectionModel.objects.get(team=team)
     round = currentRound.objects.all()
 
-    if round[0].round == phase.round:
+    # if round[0].round == phase.round:
+    if True:
         try:
             obj = submissionModel.objects.get(round=round[0].round)
         except ObjectDoesNotExist:
