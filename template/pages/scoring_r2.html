@@ -241,7 +241,7 @@
           for (i = 1; i < range.values.length; i++) {
             var row = range.values[i];
             console.log('i ='+ i);
-            console.log('{{form2.state_column}}[i] ='+ row[5]);
+            console.log('{{form2.state_column}}[i] ='+ row[6]);
             appendPre(' = '+row[0] + ' , ' + row[1]+ ' , ' + row[2]+ ' , ' + row[3]+ ' , ' + row[4]+' , ' + row[5]);
             var pos = '{{form2.state_column}}'.charCodeAt(0) - "A".charCodeAt(0);
             if(row[pos]<0.1)
@@ -260,7 +260,7 @@
                 values: values
               };
               var no = i+1;
-              var cell_state = 'Form responses {{form2.round}}!{{form2.state_column}}'+no+':{{form2.state_column}}'+no;
+              var cell_state = 'Form responses '+s_no+'!{{form2.state_column}}'+no+':{{form2.state_column}}'+no;
 
               console.log('about to change '+ cell_state );
 
@@ -273,6 +273,7 @@
                 var result = response.result;
                 console.log(`${result.updatedCells} cells updated.`);
               });
+              console.log('changed '+ cell_state );
 
               //----------------------------------------------------
 
@@ -285,8 +286,8 @@
                 row[4] = row[4].concat('/preview');
                 document.getElementById('pdf_b').src= row[4];
 
-                row[6] = row[6].replace('https://drive.google.com/open?id=',s);
-                row[6] = row[6].concat('/preview');
+                row[5] = row[5].replace('https://drive.google.com/open?id=',s);
+                row[5] = row[5].concat('/preview');
                 document.getElementById('pdf_p').src= row[6];
               
               return // find the first row with status 0 
