@@ -228,10 +228,11 @@
 
     function listMajors() {
       var s = 'https://drive.google.com/file/d/';
+      var s_no= {{form2.round}}+7;
+
       gapi.client.sheets.spreadsheets.values.get({
       //spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
       spreadsheetId: '{{form2.sheet_idt}}',
-      var s_no= {{form2.round}}+7;
       range: 'Form responses '+s_no+'!A1:G',
       }).then(function(response) {
         var range = response.result;
