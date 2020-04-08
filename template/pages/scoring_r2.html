@@ -54,18 +54,27 @@
       </div>
     </div>
   </div>
-
-
+     
   <div class="container grid grid-split-columns">
     <div class="grid-split">
-
       <div class="chart-wrapper">
         <div>
-          <button onclick="listMajors()">
+          <button onclick="listMajors()">            
             Next Team To Score
           </button>
+          <div class="chart-notes">
+            Team Name : <p id = "team_name"></p>
+          </div>
         </div>
-        <div class="chart-title">Abstract</div>
+        <div class="chart-title">
+          Abstract
+        </div>
+        <div class="chart-stage6">
+	        <iframe HEIGHT="500px"  width="100%" id = "abstract"></iframe>
+        </div>
+        <div class="chart-notes">Abstract - Notes about this chart</div>
+        <div class="chart-wrapper">
+          <div class="chart-title">Abstract</div>
           <div class="chart-stage">
             <iframe src="" HEIGHT="500px"  width="100%" id = "pdf_a"></iframe>
           </div>
@@ -109,8 +118,8 @@
             Video - Pitch and Demo - Notes about this chart
           </div>
         </div>
-
       </div>
+
 
       <div class="chart-wrapper" style="min-height: 100%;" >
         <div class="chart-title">
@@ -125,7 +134,6 @@
       </div>
     </div>
   </div>
-
   <div class="no_one">
         <p>Google Sheets API Quickstart</p>
         <!--Add buttons to initiate auth sequence and sign out-->
