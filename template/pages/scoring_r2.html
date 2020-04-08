@@ -1,0 +1,328 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>WIE Hack 2.0</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+
+  <!-- Demo Dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.6/holder.js" type="text/javascript"></script>
+  <script>
+    Holder.addTheme("white", {
+      bg: "#fff",
+      fg: "#a7a7a7",
+      size: 10
+    });
+  </script>
+
+  <!-- Dashboard -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/keen-dashboards.css' %}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body class="keen-dashboard">
+    {% include 'partials/_alerts.html'%}
+
+<div class="container">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="navbar-collapse">
+        <ul class="navbar-nav nav main-nav">
+          {% if user.is_authenticated %}
+            <li><a href="javascript:{document.getElementById('logout').submit()}" ><strong>Logout</strong></a></li>
+			  <form action="{% url 'logout' %}" id ='logout' method="POST">
+			    	{% csrf_token %}
+				    <input type="hidden">
+			</form>
+			{% else %}
+				          <li><a href="{% url 'login' %}">Mentor/Judges Login</a></li>
+			{% endif %}
+            <li><a href="{% url 'home' %}">Home</a></li>
+                      <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                      <li><a href="#support">Provide Suggestions to the Team</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container grid grid-split-columns">
+    <div class="grid-split">
+
+      <div class="chart-wrapper">
+        <div>
+          <button onclick="listMajors()">
+            Next Team To Score
+          </button>
+        </div>
+        <div class="chart-title">Abstract</div>
+          <div class="chart-stage">
+            <iframe src="" HEIGHT="500px"  width="100%" id = "pdf_a"></iframe>
+          </div>
+          <div class="chart-notes">
+            Abstract - Notes about this chart
+          </div>
+        </div>
+
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            B Plan
+          </div>
+          <div class="chart-stage">
+              <iframe src="" HEIGHT="400px"  width="100%" id = "pdf_b"></iframe>
+          </div>
+          <div class="chart-notes">
+            B Plan - Notes about this chart
+          </div>
+        </div>
+
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            PPT
+          </div>
+          <div class="chart-stage">
+              <iframe src="" HEIGHT="400px"  width="100%" id = "pdf_p"></iframe>
+          </div>
+          <div class="chart-notes">
+            PPT - Notes about this chart
+          </div>
+        </div>
+
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Video - Pitch and Demo
+          </div>
+          <div class="chart-stage">
+              <iframe src="" HEIGHT="400px"  width="100%" id = "video"></iframe>
+          </div>
+          <div class="chart-notes">
+            Video - Pitch and Demo - Notes about this chart
+          </div>
+        </div>
+
+      </div>
+
+      <div class="chart-wrapper" style="min-height: 100%;" >
+        <div class="chart-title">
+          Form for grading
+        </div>
+        <div class="chart-stage" style="height:80%;">
+            <iframe id="form" src="{{form2.form_link}}" HEIGHT="100%"  width="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+      </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="no_one">
+        <p>Google Sheets API Quickstart</p>
+        <!--Add buttons to initiate auth sequence and sign out-->
+        <button id="authorize_button" style="display: none;">Authorize</button>
+        <button id="signout_button" style="display: none;">Sign Out</button>
+
+        <pre id="content" style="white-space: pre-wrap;"></pre>
+
+
+        <script>
+            // Client ID and API key from the Developer Console
+            var CLIENT_ID = "970574398015-1iordnfq0tg6ah34h2laobh4o62geigt.apps.googleusercontent.com";
+            var API_KEY = "AIzaSyCzpp7ML1bi7iseJRx2-SAH34yV6M13Ok0";
+
+            // Array of API discovery doc URLs for APIs used by the quickstart
+            var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+
+            // Authorization scopes required by the API; multiple scopes can be
+            // included, separated by spaces.
+            var SCOPES = "https://www.googleapis.com/auth/spreadsheets";
+
+            var authorizeButton = document.getElementById('authorize_button');
+            var signoutButton = document.getElementById('signout_button');
+
+            /**
+             *  On load, called to load the auth2 library and API client library.
+             */
+            function handleClientLoad() {
+              gapi.load('client:auth2', initClient);
+            }
+
+            /**
+             *  Initializes the API client library and sets up sign-in state
+             *  listeners.
+             */
+            function initClient() {
+              gapi.client.init({
+                apiKey: API_KEY,
+                clientId: CLIENT_ID,
+                discoveryDocs: DISCOVERY_DOCS,
+                scope: SCOPES
+              }).then(function () {
+                // Listen for sign-in state changes.
+                gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+                // Handle the initial sign-in state.
+                updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+                authorizeButton.onclick = handleAuthClick;
+                signoutButton.onclick = handleSignoutClick;
+              }, function(error) {
+                appendPre(JSON.stringify(error, null, 2));
+              });
+            }
+
+            /**
+             *  Called when the signed in status changes, to update the UI
+             *  appropriately. After a sign-in, the API is called.
+             */
+            function updateSigninStatus(isSignedIn) {
+              if (isSignedIn) {
+                authorizeButton.style.display = 'none';
+                signoutButton.style.display = 'block';
+                listMajors();
+              } else {
+                authorizeButton.style.display = 'block';
+                signoutButton.style.display = 'none';
+              }
+            }
+
+            /**
+             *  Sign in the user upon button click.
+             */
+            function handleAuthClick(event) {
+              gapi.auth2.getAuthInstance().signIn();
+            }
+
+            /**
+             *  Sign out the user upon button click.
+             */
+            function handleSignoutClick(event) {
+              gapi.auth2.getAuthInstance().signOut();
+            }
+
+            /**
+             * Append a pre element to the body containing the given message
+             * as its text node. Used to display the results of the API call.
+             *
+             * @param {string} message Text to be placed in pre element.
+             */
+            function appendPre(message) {
+              var pre = document.getElementById('content');
+              var textContent = document.createTextNode(message + '\n');
+              pre.appendChild(textContent);
+            }
+
+            /**
+             * Print the names and majors of students in a sample spreadsheet:
+             * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+             */
+		function listMajors() {
+			var s = 'https://drive.google.com/file/d/';
+			gapi.client.sheets.spreadsheets.values.get({
+			//spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
+			spreadsheetId: '11WPsbrCt0MDQtTrIwRgKi6pT6Vjkt5mz_qa9ElHBs-I',
+			range: 'Form responses 2!A1:F',
+			}).then(function(response) {
+				var range = response.result;
+				if (range.values.length > 0) {
+					appendPre('Time stamp,          Pdf link:');
+					for (i = 1; i < range.values.length; i++) {
+						var row = range.values[i];
+						console.log('i ='+ i);
+						console.log('F[i] ='+ row[5]);
+						appendPre(' = '+row[0] + ' , ' + row[1]+ ' , ' + row[2]+ ' , ' + row[3]+ ' , ' + row[4]+' , ' + row[5]);
+						var pos = 'F'.charCodeAt(0) - "A".charCodeAt(0);
+						if(row[pos]<0.1)
+						{
+							// ____________________ write 1 ___________________
+							console.log('In loop ');
+
+							var values = [
+								[
+								// Cell values ...
+								1
+								],
+								// Additional rows ...
+							];
+							var body = {
+								values: values
+							};
+							var no = i+1;
+							var cell_state = 'Form responses 2!F'+no+':F'+no;
+
+							console.log('about to change '+ cell_state );
+
+							gapi.client.sheets.spreadsheets.values.update({
+								spreadsheetId: '11WPsbrCt0MDQtTrIwRgKi6pT6Vjkt5mz_qa9ElHBs-I',
+								range: cell_state,
+								valueInputOption: 'RAW',
+								resource: body
+							}).then((response) => {
+								var result = response.result;
+								console.log(`${result.updatedCells} cells updated.`);
+							});
+
+							//----------------------------------------------------
+
+							// Print columns A and E, which correspond to indices 0 and 4.
+								row[3] = row[3].replace('https://drive.google.com/open?id=',s);
+								row[3] = row[3].concat('/preview');
+								document.getElementById('pdf_a').src= row[3];
+
+								row[4] = row[4].replace('https://drive.google.com/open?id=',s);
+								row[4] = row[4].concat('/preview');
+								document.getElementById('pdf_b').src= row[4];
+
+								row[6] = row[6].replace('https://drive.google.com/open?id=',s);
+								row[6] = row[6].concat('/preview');
+								document.getElementById('pdf_p').src= row[6];
+							
+							return // find the first row with status 0 
+						}
+				  } 
+				}
+				else {
+					appendPre('No data found.');
+				}
+			}, function(response) {
+			    appendPre('Error: ' + response.result.error.message);
+			});
+		}
+
+        </script>
+        <script async defer src="https://apis.google.com/js/api.js"
+          onload="this.onload=function(){},handleClientLoad()"
+          onreadystatechange="if (this.readyState === 'complete')this.onload()">
+        </script>
+    </div>
+  <!-- Project Analytics
+  <script type="text/javascript" src="../../assets/js/keen-analytics.js"></script>
+  -->
+  <script>
+    function toggleMenu() {
+      const toggleBtn = document.querySelector('.navbar-toggle');
+
+      toggleBtn.addEventListener('click', (e) => {
+        let menu;
+        if (e.currentTarget.dataset.target) {
+          menu = document.querySelector(e.currentTarget.dataset.target);
+        }
+        if (menu) menu.classList.toggle('collapsed');
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', toggleMenu);
+  </script>
+
+  {% include 'partials/_mail.html'%}
+</body>
+</html>
