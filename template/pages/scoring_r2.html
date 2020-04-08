@@ -236,12 +236,11 @@
 
     function listMajors() {
       var s = 'https://drive.google.com/file/d/';
-      var s_no= {{form2.round}}+7;
 
       gapi.client.sheets.spreadsheets.values.get({
       //spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
       spreadsheetId: '{{form2.sheet_id}}',
-      range: 'Form responses '+s_no+'!A1:G',
+      range: 'Form responses {{form2.round}}!A1:G',
       }).then(function(response) {
         var range = response.result;
         if (range.values.length > 0) {
@@ -268,7 +267,7 @@
                 values: values
               };
               var no = i+1;
-              var cell_state = 'Form responses '+s_no+'!{{form2.state_column}}'+no+':{{form2.state_column}}'+no;
+              var cell_state = 'Form responses {{form2.round}}!{{form2.state_column}}'+no+':{{form2.state_column}}'+no;
 
               console.log('about to change '+ cell_state );
 
@@ -292,11 +291,11 @@
 
                 row[4] = row[4].replace('https://drive.google.com/open?id=',s);
                 row[4] = row[4].concat('/preview');
-                document.getElementById('pdf_b').src= row[4];
+                document.getElementById('pdf_p').src= row[4];
 
                 row[5] = row[5].replace('https://drive.google.com/open?id=',s);
                 row[5] = row[5].concat('/preview');
-                document.getElementById('pdf_p').src= row[6];
+                document.getElementById('pdf_b').src= row[5];
               
               return // find the first row with status 0 
             }
