@@ -66,10 +66,20 @@
             Team Name : <p id = "team_name"></p>
           </div>
         </div>
-        <div class="chart-title">
-          Abstract
-        </div>
+       
         <div class="chart-wrapper">
+          <div class="chart-title">
+            Abstract
+          </div>
+          <div class="chart-stage">
+              <iframe src="" HEIGHT="400px"  width="100%" id = "pdf_a"></iframe>
+          </div>
+          <div class="chart-notes">
+            Abstract - Notes about this chart
+          </div>
+        </div>
+	
+	 <div class="chart-wrapper">
           <div class="chart-title">
             B Plan
           </div>
@@ -222,7 +232,6 @@
 
     function listMajors() {
       var s = 'https://drive.google.com/file/d/';
-
       gapi.client.sheets.spreadsheets.values.get({
       //spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
       spreadsheetId: '{{form2.sheet_id}}',
@@ -271,7 +280,8 @@
               //----------------------------------------------------
 
               // Print columns A and E, which correspond to indices 0 and 4.
-                document.getElementById('team_name').innerHTML= row[1];
+               
+		document.getElementById('team_name').innerHTML= row[1];
 		    
                 row[3] = row[3].replace('https://drive.google.com/open?id=',s);
                 row[3] = row[3].concat('/preview');
