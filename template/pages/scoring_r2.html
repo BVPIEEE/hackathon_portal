@@ -40,13 +40,13 @@
         <ul class="navbar-nav nav main-nav">
           {% if user.is_authenticated %}
             <li><a href="javascript:{document.getElementById('logout').submit()}" ><strong>Logout</strong></a></li>
-			  <form action="{% url 'logout' %}" id ='logout' method="POST">
-			    	{% csrf_token %}
-				    <input type="hidden">
-			</form>
-			{% else %}
-				          <li><a href="{% url 'login' %}">Mentor/Judges Login</a></li>
-			{% endif %}
+        <form action="{% url 'logout' %}" id ='logout' method="POST">
+            {% csrf_token %}
+            <input type="hidden">
+      </form>
+      {% else %}
+                  <li><a href="{% url 'login' %}">Mentor/Judges Login</a></li>
+      {% endif %}
             <li><a href="{% url 'home' %}">Home</a></li>
                       <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
                       <li><a href="#support">Provide Suggestions to the Team</a></li>
@@ -137,8 +137,8 @@
 
         <script>
             // Client ID and API key from the Developer Console
-            var CLIENT_ID = "970574398015-1iordnfq0tg6ah34h2laobh4o62geigt.apps.googleusercontent.com";
-            var API_KEY = "AIzaSyCzpp7ML1bi7iseJRx2-SAH34yV6M13Ok0";
+            var CLIENT_ID = "{{form.client}}";
+            var API_KEY = "{{form.api_key}}"
 
             // Array of API discovery doc URLs for APIs used by the quickstart
             var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
@@ -225,78 +225,79 @@
              * Print the names and majors of students in a sample spreadsheet:
              * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
              */
-		function listMajors() {
-			var s = 'https://drive.google.com/file/d/';
-			gapi.client.sheets.spreadsheets.values.get({
-			//spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-			spreadsheetId: '11WPsbrCt0MDQtTrIwRgKi6pT6Vjkt5mz_qa9ElHBs-I',
-			range: 'Form responses 2!A1:F',
-			}).then(function(response) {
-				var range = response.result;
-				if (range.values.length > 0) {
-					appendPre('Time stamp,          Pdf link:');
-					for (i = 1; i < range.values.length; i++) {
-						var row = range.values[i];
-						console.log('i ='+ i);
-						console.log('F[i] ='+ row[5]);
-						appendPre(' = '+row[0] + ' , ' + row[1]+ ' , ' + row[2]+ ' , ' + row[3]+ ' , ' + row[4]+' , ' + row[5]);
-						var pos = 'F'.charCodeAt(0) - "A".charCodeAt(0);
-						if(row[pos]<0.1)
-						{
-							// ____________________ write 1 ___________________
-							console.log('In loop ');
 
-							var values = [
-								[
-								// Cell values ...
-								1
-								],
-								// Additional rows ...
-							];
-							var body = {
-								values: values
-							};
-							var no = i+1;
-							var cell_state = 'Form responses 2!F'+no+':F'+no;
+    function listMajors() {
+      var s = 'https://drive.google.com/file/d/';
+      gapi.client.sheets.spreadsheets.values.get({
+      //spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
+      spreadsheetId: '{{form2.sheet_idt}}',
+      range: 'Form responses {{form2.round}}!A1:G',
+      }).then(function(response) {
+        var range = response.result;
+        if (range.values.length > 0) {
+          appendPre('Time stamp,          Pdf link:');
+          for (i = 1; i < range.values.length; i++) {
+            var row = range.values[i];
+            console.log('i ='+ i);
+            console.log('{{form2.state_column}}[i] ='+ row[5]);
+            appendPre(' = '+row[0] + ' , ' + row[1]+ ' , ' + row[2]+ ' , ' + row[3]+ ' , ' + row[4]+' , ' + row[5]);
+            var pos = '{{form2.state_column}}'.charCodeAt(0) - "A".charCodeAt(0);
+            if(row[pos]<0.1)
+            {
+              // ____________________ write 1 ___________________
+              console.log('In loop ');
 
-							console.log('about to change '+ cell_state );
+              var values = [
+                [
+                // Cell values ...
+                1
+                ],
+                // Additional rows ...
+              ];
+              var body = {
+                values: values
+              };
+              var no = i+1;
+              var cell_state = 'Form responses {{form2.round}}!{{form2.state_column}}'+no+':{{form2.state_column}}'+no;
 
-							gapi.client.sheets.spreadsheets.values.update({
-								spreadsheetId: '11WPsbrCt0MDQtTrIwRgKi6pT6Vjkt5mz_qa9ElHBs-I',
-								range: cell_state,
-								valueInputOption: 'RAW',
-								resource: body
-							}).then((response) => {
-								var result = response.result;
-								console.log(`${result.updatedCells} cells updated.`);
-							});
+              console.log('about to change '+ cell_state );
 
-							//----------------------------------------------------
+              gapi.client.sheets.spreadsheets.values.update({
+                spreadsheetId: '{{form2.sheet_id}}',
+                range: cell_state,
+                valueInputOption: 'RAW',
+                resource: body
+              }).then((response) => {
+                var result = response.result;
+                console.log(`${result.updatedCells} cells updated.`);
+              });
 
-							// Print columns A and E, which correspond to indices 0 and 4.
-								row[3] = row[3].replace('https://drive.google.com/open?id=',s);
-								row[3] = row[3].concat('/preview');
-								document.getElementById('pdf_a').src= row[3];
+              //----------------------------------------------------
 
-								row[4] = row[4].replace('https://drive.google.com/open?id=',s);
-								row[4] = row[4].concat('/preview');
-								document.getElementById('pdf_b').src= row[4];
+              // Print columns A and E, which correspond to indices 0 and 4.
+                row[3] = row[3].replace('https://drive.google.com/open?id=',s);
+                row[3] = row[3].concat('/preview');
+                document.getElementById('pdf_a').src= row[3];
 
-								row[6] = row[6].replace('https://drive.google.com/open?id=',s);
-								row[6] = row[6].concat('/preview');
-								document.getElementById('pdf_p').src= row[6];
-							
-							return // find the first row with status 0 
-						}
-				  } 
-				}
-				else {
-					appendPre('No data found.');
-				}
-			}, function(response) {
-			    appendPre('Error: ' + response.result.error.message);
-			});
-		}
+                row[4] = row[4].replace('https://drive.google.com/open?id=',s);
+                row[4] = row[4].concat('/preview');
+                document.getElementById('pdf_b').src= row[4];
+
+                row[6] = row[6].replace('https://drive.google.com/open?id=',s);
+                row[6] = row[6].concat('/preview');
+                document.getElementById('pdf_p').src= row[6];
+              
+              return // find the first row with status 0 
+            }
+          } 
+        }
+        else {
+          appendPre('No data found.');
+        }
+      }, function(response) {
+          appendPre('Error: ' + response.result.error.message);
+      });
+    }
 
         </script>
         <script async defer src="https://apis.google.com/js/api.js"
