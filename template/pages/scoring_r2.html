@@ -232,7 +232,7 @@
 
       gapi.client.sheets.spreadsheets.values.get({
       //spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-      spreadsheetId: '{{form2.sheet_idt}}',
+      spreadsheetId: '{{form2.sheet_id}}',
       range: 'Form responses '+s_no+'!A1:G',
       }).then(function(response) {
         var range = response.result;
