@@ -40,13 +40,13 @@
         <ul class="navbar-nav nav main-nav">
           {% if user.is_authenticated %}
             <li><a href="javascript:{document.getElementById('logout').submit()}" ><strong>Logout</strong></a></li>
-			  <form action="{% url 'logout' %}" id ='logout' method="POST">
-			    	{% csrf_token %}
-				    <input type="hidden">
-			</form>
-			{% else %}
-				          <li><a href="{% url 'login' %}">Mentor/Judges Login</a></li>
-			{% endif %}
+        <form action="{% url 'logout' %}" id ='logout' method="POST">
+            {% csrf_token %}
+            <input type="hidden">
+      </form>
+      {% else %}
+                  <li><a href="{% url 'login' %}">Mentor/Judges Login</a></li>
+      {% endif %}
             <li><a href="{% url 'home' %}">Home</a></li>
                       <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
                       <li><a href="#support">Provide Suggestions to the Team</a></li>
@@ -55,7 +55,7 @@
     </div>
   </div>
 
-	<div>
+  <div>
     <button  onclick = "Set_team_no(1 )" > T 1 </button>
     <button  onclick = "Set_team_no(2 )" > T 2 </button>
     <button  onclick = "Set_team_no(3 )" > T 3 </button>
@@ -66,15 +66,17 @@
     <button  onclick = "Set_team_no(8 )" > T 8 </button>
     <button  onclick = "Set_team_no(9 )" > T 9 </button>
     <button  onclick = "Set_team_no(10)" > T10 </button>
-		<br>
+    <br>
     <button  href='https://drive.google.com/file/d/1hkL4dDHrjSU-XwE_RE_-gJPDBQRI_nhM/preview' > Scoring Criteria </button>
     <div class="chart-title">
-    	Team Name : <p id = "team_name"></p>
+      Team Name : <p id = "team_name"></p>
     </div>
   </div>
-	
+  
   <div class="container grid grid-split-columns">
     <div class="grid-split">
+      <div class="chart-wrapper"> 
+
         <div class="chart-wrapper">
           <div class="chart-title">Abstract</div>
           <div class="chart-stage">
@@ -108,6 +110,7 @@
               <iframe src="" HEIGHT="400px"  width="100%" id = "video"></iframe>
           </div>
         </div>
+
       </div>
 
       <div class="chart-wrapper" style="min-height: 100%;" >
@@ -118,7 +121,7 @@
             <iframe id="form" src="{{form2.form_link}}" HEIGHT="100%"  width="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
         </div>
       </div>
-			
+      
       </div>
     </div>
   </div>
@@ -231,54 +234,54 @@
            * Print the names and majors of students in a sample spreadsheet:
            * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
            */
-      		function listMajors() {
-      			var s = 'https://drive.google.com/file/d/';
-      			gapi.client.sheets.spreadsheets.values.get({
-      			//spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-      			spreadsheetId: '{{ form2.sheet_id }}',
-      			range: 'Top10!A1:G',
-      			}).then(function(response) {
-      				var range = response.result;
-      				if (range.values.length > 0) {
-      					appendPre('Team Name     GitHub ID     Abstract        Presentation          B-model          Presentation        Video-Pitch & Working');
-      					   
+          function listMajors() {
+            var s = 'https://drive.google.com/file/d/';
+            gapi.client.sheets.spreadsheets.values.get({
+            //spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
+            spreadsheetId: '{{ form2.sheet_id }}',
+            range: 'Top10!A1:G',
+            }).then(function(response) {
+              var range = response.result;
+              if (range.values.length > 0) {
+                appendPre('Team Name     GitHub ID     Abstract        Presentation          B-model          Presentation        Video-Pitch & Working');
+                   
                   var i = team_no;
                   var row = range.values[i];
 
-      						appendPre(' [ '+row[0] + ' ,  ' + row[1] + ' ,  ' + row[2] + ' ,  ' + row[3] + ' ,  ' + row[4] + ' ,  ' + row[5] );
+                  appendPre(' [ '+row[0] + ' ,  ' + row[1] + ' ,  ' + row[2] + ' ,  ' + row[3] + ' ,  ' + row[4] + ' ,  ' + row[5] );
                 
-      						console.log('i ='+ i);
-      						
-      						//----------------------------------------------------------------
+                  console.log('i ='+ i);
+                  
+                  //----------------------------------------------------------------
                   document.getElementById('team_name').innerHTML= row[0];
 
-      						row[2] = row[2].replace('https://drive.google.com/open?id=',s);
-      						row[2] = row[2].concat('/preview');
-      						document.getElementById('pdf_a').src= row[2];
+                  row[2] = row[2].replace('https://drive.google.com/open?id=',s);
+                  row[2] = row[2].concat('/preview');
+                  document.getElementById('pdf_a').src= row[2];
 
                   row[3] = row[3].replace('https://drive.google.com/open?id=',s);
                   row[3] = row[3].concat('/preview');
                   document.getElementById('pdf_b').src= row[3];
 
-      						row[4] = row[4].replace('https://drive.google.com/open?id=',s);
-      						row[4] = row[4].concat('/preview');
-      						document.getElementById('pdf_p').src= row[4];
-      						
+                  row[4] = row[4].replace('https://drive.google.com/open?id=',s);
+                  row[4] = row[4].concat('/preview');
+                  document.getElementById('pdf_p').src= row[4];
+                  
                   row[5] = row[5].replace('https://drive.google.com/open?id=',s);
                   row[5] = row[5].concat('/preview');
                   document.getElementById('video').src= row[5];
                   //----------------------------------------------------------------
 
-      				  }
-      				else {
-      					appendPre('No data found.');
-      				}
+                }
+              else {
+                appendPre('No data found.');
+              }
               return  
 
-      			}, function(response) {
-      			    appendPre('Error: ' + response.result.error.message);
-      			});
-      		}
+            }, function(response) {
+                appendPre('Error: ' + response.result.error.message);
+            });
+          }
         </script>
         <script async defer src="https://apis.google.com/js/api.js"
           onload="this.onload=function(){},handleClientLoad()"
