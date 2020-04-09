@@ -54,43 +54,43 @@
       </div>
     </div>
   </div>
-	<div class="container" >
-		<button  onclick = "Set_team_no(1 )" > T 1 </button>
-		<button  onclick = "Set_team_no(2 )" > T 2 </button>
-		<button  onclick = "Set_team_no(3 )" > T 3 </button>
-		<button  onclick = "Set_team_no(4 )" > T 4 </button>
-		<button  onclick = "Set_team_no(5 )" > T 5 </button>
-		<button  onclick = "Set_team_no(6 )" > T 6 </button>
-		<button  onclick = "Set_team_no(7 )" > T 7 </button>
-		<button  onclick = "Set_team_no(8 )" > T 8 </button>
-		<button  onclick = "Set_team_no(9 )" > T 9 </button>
-		<button  onclick = "Set_team_no(10)" > T10 </button>
-		<br>
-		<button  onclick = "Set_team_no(11)" > T11 </button>
-		<button  onclick = "Set_team_no(12)" > T12 </button>
-		<button  onclick = "Set_team_no(13)" > T13 </button>
-		<button  onclick = "Set_team_no(14)" > T14 </button>
-		<button  onclick = "Set_team_no(15)" > T15 </button>
-		<button  onclick = "Set_team_no(16)" > T16 </button>
-		<button  onclick = "Set_team_no(17)" > T17 </button>
-		<button  onclick = "Set_team_no(18)" > T18 </button>
-		<button  onclick = "Set_team_no(19)" > T19 </button>
-		<button  onclick = "Set_team_no(20)" > T20 </button>
-		<br>
-		<button onclick="window.location.href = 'https://drive.google.com/file/d/1hkL4dDHrjSU-XwE_RE_-gJPDBQRI_nhM/preview';">
-			 Criteria 
-		</button>
-		<div class="chart-title">
-			Team Name : <p id = "team_name"></p>
-		</div>
+  <div class="container" >
+    <button  onclick = "Set_team_no(1 )" > T 1 </button>
+    <button  onclick = "Set_team_no(2 )" > T 2 </button>
+    <button  onclick = "Set_team_no(3 )" > T 3 </button>
+    <button  onclick = "Set_team_no(4 )" > T 4 </button>
+    <button  onclick = "Set_team_no(5 )" > T 5 </button>
+    <button  onclick = "Set_team_no(6 )" > T 6 </button>
+    <button  onclick = "Set_team_no(7 )" > T 7 </button>
+    <button  onclick = "Set_team_no(8 )" > T 8 </button>
+    <button  onclick = "Set_team_no(9 )" > T 9 </button>
+    <button  onclick = "Set_team_no(10)" > T10 </button>
+    <br>
+    <button  onclick = "Set_team_no(11)" > T11 </button>
+    <button  onclick = "Set_team_no(12)" > T12 </button>
+    <button  onclick = "Set_team_no(13)" > T13 </button>
+    <button  onclick = "Set_team_no(14)" > T14 </button>
+    <button  onclick = "Set_team_no(15)" > T15 </button>
+    <button  onclick = "Set_team_no(16)" > T16 </button>
+    <button  onclick = "Set_team_no(17)" > T17 </button>
+    <button  onclick = "Set_team_no(18)" > T18 </button>
+    <button  onclick = "Set_team_no(19)" > T19 </button>
+    <button  onclick = "Set_team_no(20)" > T20 </button>
+    <br>
+    <button onclick="window.location.href = 'https://drive.google.com/file/d/1hkL4dDHrjSU-XwE_RE_-gJPDBQRI_nhM/preview';">
+       Criteria 
+    </button>
+    <div class="chart-title">
+      Team Name : <p id = "team_name"></p>
+    </div>
 
   </div>
 
   <div class="container grid grid-split-columns">
-
-		<div class="grid-split">
-			
-			<div class="chart-wrapper">
+    <div>
+    <div class="grid-split">
+      
+      <div class="chart-wrapper">
           <div class="chart-title">
             Video - Pitch and Demo
           </div>
@@ -98,7 +98,7 @@
               <iframe src="" HEIGHT="400px"  width="100%" id = "video"></iframe>
           </div>
       </div>
-			
+      
       <div class="chart-wrapper"> 
 
         <div class="chart-wrapper">
@@ -124,8 +124,11 @@
           <div class="chart-stage">
               <iframe src="" HEIGHT="400px"  width="100%" id = "pdf_p"></iframe>
           </div>
-				</div>
+        </div>
       </div>
+    </div>
+
+    </div>
 
       <div class="chart-wrapper" style="min-height: 100%;" >
         <div class="chart-title">
@@ -136,8 +139,6 @@
         </div>
       </div>
       
-      </div>
-    </div>
   </div>
 
   <div class="no_one">
@@ -154,11 +155,11 @@
 
           function Set_team_no(no){
             team_no = no;
-				    
-						var ifr = document.getElementsByID('form');
-			    	ifr.src = ifr.src;
             
-						listMajors();
+            var ifr = document.getElementsByID('form');
+            ifr.src = ifr.src;
+            
+            listMajors();
           }
 
 
